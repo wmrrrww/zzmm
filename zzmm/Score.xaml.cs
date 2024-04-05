@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,36 +11,39 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static SnakeGame.MainWindow;
 
 namespace zzmm
 {
     /// <summary>
-    /// Логика взаимодействия для Score.xaml
+    /// Логика взаимодействия для Name.xaml
     /// </summary>
-    public partial class Score : Window
+    public partial class InputNameDialog : Window
     {
-        public Score()
+        public InputNameDialog()
         {
             InitializeComponent();
         }
 
-        public void UpdateScoreData(List<GameResult> results)
+        private void OK_Click(object sender, RoutedEventArgs e)
         {
-            bestScoresDataGrid.ItemsSource = results;
+            DialogResult = true; // Устанавливаем DialogResult в true
+            Close(); // Закрываем окно
         }
 
-        private List<GameResult> bestResults = new List<GameResult>();
-
-        public void UpdateScoreData(GameResult newResult)
+        // Обработчик события нажатия кнопки "Cancel"
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            bestResults.Add(newResult);
-            bestResults = bestResults.OrderByDescending(r => r.Score).Take(10).ToList();
-            bestScoresDataGrid.ItemsSource = bestResults;
+            DialogResult = false; // Устанавливаем DialogResult в false
+            Close(); // Закрываем окно
         }
 
+        // Свойство для получения введенного имени игрока
+        public string PlayerName
+        {
+            get { return playerNameTextBox.Text; }
+        }
 
-
+       
 
     }
 }
